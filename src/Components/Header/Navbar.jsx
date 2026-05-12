@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link } from 'react-router';
 import learnLogo from "../../assets/learnLogo.png"
+import { AuthContext } from '../../Context/AuthContext';
 
 
 const Navbar = () => { 
+  const {user}=use(AuthContext)
+  console.log(user)
     const links = 
     <> 
     <Link className='mr-5' to={'/'}>Home</Link>
@@ -39,8 +42,8 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end ">
-    <a className="btn text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5 mr-6">Login</a>
-    <a className="btn text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5">SignUp</a>
+    <Link to="/auth/signIn" className="btn text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5 mr-6">Login</Link>
+    <Link to={'/auth/signUp'} className="btn text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5">SignUp</Link>
   </div>
 
   
