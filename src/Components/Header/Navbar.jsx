@@ -4,6 +4,7 @@ import learnLogo from "../../assets/learnLogo.png"
 import { AuthContext } from '../../Context/AuthContext';
 import userImg from "../../assets/useImg.jpeg";
 import { LuLogOut } from "react-icons/lu";
+import { NavLink } from 'react-router';
 
 
 const Navbar = () => { 
@@ -19,16 +20,21 @@ const Navbar = () => {
     })
     
     
-  }
+  } 
+
+  const linkStyle = ({ isActive }) =>
+    isActive
+      ? " font-bold border-b-2 border-yellow-400 pb-1 mr-3"
+      : "text-[#0000FF] hover:[#0000FF] mr-3";
     const links = 
     <> 
-    <Link className='mr-5' to={'/'}>Home</Link>
-    <Link className='mr-5' to="/courses">Courses</Link>
-    <Link className='mr-5' to={'/dashboard'}>Dashboard</Link>
+    <NavLink className={linkStyle} to={'/'}>Home</NavLink>
+    <NavLink className={linkStyle} to="/courses">Courses</NavLink>
+    <NavLink className={linkStyle} to={'/dashboard'}>Dashboard</NavLink>
     </>
     return (
-  <div> 
-         <div className="navbar  relative bg-gradient-to-r from-purple-900/50 via-black/20 to-blue-900/40">
+  <div className='max-w-[1670px] mx-auto mb-3'> 
+         <div className="navbar  relative bg-gradient-to-r from-purple-900/50 via-black/20 to-blue-900/40 ">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -61,7 +67,7 @@ const Navbar = () => {
       
       <div tabIndex={0} role="button" className="cursor-pointer">
         <img
-          className="w-12 h-12 rounded-full border-2 border-blue-500 object-cover"
+          className="w-14 h-14 rounded-full border-2 border-blue-500 object-cover"
           src={user ? user.photoURL : userImg}
           alt="user"
         />
@@ -81,18 +87,16 @@ const Navbar = () => {
         </li>
 
         <li>
-          <button onClick={handleLogOut} className="text-red-500">
-             Logout
-          </button>
+          <button onClick={handleLogOut} className=' btn bg-gradient-to-r from-teal-400 to-yellow-200 '>LogOut <LuLogOut></LuLogOut></button>
         </li>
       </ul>
     </div>
-    {/* <img className='w-12 h-12 mr-3 rounded-full' src={`${user ? user.photoURL : userImg}`} alt=""  /> */}
+
     
 
 
     {
-      user ? <button onClick={handleLogOut} className=' btn bg-gradient-to-r from-teal-400 to-yellow-200 '>LogOut <LuLogOut></LuLogOut></button>:    <div className='flex'> 
+      user ?"":    <div className='flex'> 
                       <Link to="/auth/signIn" className="btn text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5 mr-6">Login</Link>
                        <Link to={'/auth/signUp'} className="btn text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5">SignUp</Link>
                     

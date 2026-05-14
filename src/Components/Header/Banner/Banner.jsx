@@ -85,7 +85,7 @@ const Banner = () => {
       </AnimatePresence>
 
       
-      <div className="relative z-20 max-w-7xl mx-auto h-full flex items-center px-6">
+      <div className="relative z-20 max-w-[1780px] mx-auto h-full flex items-center px-6">
 
         <motion.div
           key={slides[current].title}
