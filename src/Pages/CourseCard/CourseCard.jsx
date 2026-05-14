@@ -1,8 +1,49 @@
 import React from 'react';
 import { FaHeart, FaStar } from 'react-icons/fa';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
+import Swal from 'sweetalert2'
 
 const CourseCard = ({ course }) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleDelete = ()=>{
+        Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed)
+      fetch(`http://localhost:5183/courses/${course._id}`,{
+        method:"DELETE",
+        headers:{
+            'content-type':'application/json',
+        },
+       
+       }) 
+       .then((res)=>res.json())
+       .then(data=>{
+        console.log(data)
+      navigate(`${location.state ? location.state : '/courses'}`)
+        Swal.fire({
+         title: "Deleted!",
+         text: "Your file has been deleted.",
+         icon: "success"
+       }).catch(error=>{
+        console.log(error)
+       })
+    
+    
+    
+    
+  });
+});
+
+    }
 
   const { _id, title, thumbnail,category, rating,level, price, students} = course;
 
@@ -32,12 +73,12 @@ const CourseCard = ({ course }) => {
           <p className="text-gray-500 font-semibold"> {students}+ Students  </p>
           <span className="text-2xl font-extrabold text-cyan-600"> ${price} </span> 
            </div>
-           <div className='flex gap-8 py-4'>
+           <div className='flex gap-5 py-4'>
         
          
           <Link to={`/courseDeatils/${_id}`} className="group h-8 select-none rounded-lg  bg-gradient-to-r from-fuchsia-500 to-cyan-500 px-3 text-sm leading-8 text-zinc-50 shadow-[0_-1px_0_1px_#1e3a8a_inset,0_0_0_1px_#1d4ed8_inset,0_0.5px_0_1.5px_#60a5fa_inset] hover:bg-gradient-to-r from-fuchsia-500 to-cyan-500 active:bg-gradient-to-r from-fuchsia-500 to-cyan-500 active:shadow-[-1px_0px_1px_0px_rgba(0,0,0,.2)_inset,1px_0px_1px_0px_rgba(0,0,0,.2)_inset,0px_0.125rem_0px_0px_rgba(0,0,0,.6)_inset]"><span className="block group-active:[transform:translate3d(0,1px,0)]">View Details</span></Link>
-          <Link className="group h-8 select-none rounded-lg bg-blue-600 px-3 text-sm leading-8 text-zinc-50 shadow-[0_-1px_0_1px_#1e3a8a_inset,0_0_0_1px_#1d4ed8_inset,0_0.5px_0_1.5px_#60a5fa_inset] hover:bg-blue-700 active:bg-blue-800 active:shadow-[-1px_0px_1px_0px_rgba(0,0,0,.2)_inset,1px_0px_1px_0px_rgba(0,0,0,.2)_inset,0px_0.125rem_0px_0px_rgba(0,0,0,.6)_inset]"><span className="block group-active:[transform:translate3d(0,1px,0)]">Update</span></Link>
-          <button className="group h-8 select-none rounded-lg bg-red-600 px-3 text-sm leading-8 text-zinc-50 shadow-[0_-1px_0_1px_#7f1d1d_inset,0_0_0_1px_#b91c1c_inset,0_0.5px_0_1.5px_#f87171_inset] hover:bg-red-700 active:bg-red-800 active:shadow-[-1px_0px_1px_0px_rgba(0,0,0,.2)_inset,1px_0px_1px_0px_rgba(0,0,0,.2)_inset,0px_0.125rem_0px_0px_rgba(0,0,0,.6)_inset]"><span className="block group-active:[transform:translate3d(0,1px,0)]">Delete</span></button>
+          <Link to={`/updateCourse/${_id}`} className="group h-8 select-none rounded-lg bg-blue-600 px-3 text-sm leading-8 text-zinc-50 shadow-[0_-1px_0_1px_#1e3a8a_inset,0_0_0_1px_#1d4ed8_inset,0_0.5px_0_1.5px_#60a5fa_inset] hover:bg-blue-700 active:bg-blue-800 active:shadow-[-1px_0px_1px_0px_rgba(0,0,0,.2)_inset,1px_0px_1px_0px_rgba(0,0,0,.2)_inset,0px_0.125rem_0px_0px_rgba(0,0,0,.6)_inset]"><span className="block group-active:[transform:translate3d(0,1px,0)]">Update Course </span></Link>
+          <button onClick={handleDelete} className="group h-8 select-none rounded-lg bg-red-600 px-3 text-sm leading-8 text-zinc-50 shadow-[0_-1px_0_1px_#7f1d1d_inset,0_0_0_1px_#b91c1c_inset,0_0.5px_0_1.5px_#f87171_inset] hover:bg-red-700 active:bg-red-800 active:shadow-[-1px_0px_1px_0px_rgba(0,0,0,.2)_inset,1px_0px_1px_0px_rgba(0,0,0,.2)_inset,0px_0.125rem_0px_0px_rgba(0,0,0,.6)_inset]"><span className="block group-active:[transform:translate3d(0,1px,0)]">Delete</span></button>
            </div>
 
       </div>

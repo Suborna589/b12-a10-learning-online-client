@@ -18,6 +18,7 @@ import AllCourses from "../Pages/AllCourses/AllCourses";
 import Home from "../Pages/Home/Home";
 import CourseDetails from "../Pages/CourseDetails/CourseDetails";
 import AddNewCourse from "../Pages/AddNewCourse/AddNewCourse";
+import UpdateCourse from "../Pages/UpdateCourse/UpdateCourse";
 
 
 
@@ -60,6 +61,12 @@ const router = createBrowserRouter([
   {
     path: 'addCourse',
     element:<AddNewCourse></AddNewCourse>
+  }, 
+
+  {
+    path:'/updateCourse/:id',
+    loader:({params})=>fetch(`http://localhost:5183/courses/${params.id}`),
+    element:<UpdateCourse></UpdateCourse>
   },
 
         
