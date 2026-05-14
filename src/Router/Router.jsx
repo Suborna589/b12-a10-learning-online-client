@@ -16,6 +16,8 @@ import UpdateProfile from "../Pages/UpdateProfile/UpdateProfile";
 import ForgotPassword from "../Pages/ForgotPassword/ForgotPassword";
 import AllCourses from "../Pages/AllCourses/AllCourses";
 import Home from "../Pages/Home/Home";
+import CourseDetails from "../Pages/CourseDetails/CourseDetails";
+import AddNewCourse from "../Pages/AddNewCourse/AddNewCourse";
 
 
 
@@ -47,6 +49,17 @@ const router = createBrowserRouter([
     path:'dashboard',
     element:<Dashboard></Dashboard>
 
+  }, 
+
+  {
+    path:'/courseDeatils/:id',  
+    element:<CourseDetails></CourseDetails>
+
+  },
+
+  {
+    path: 'addCourse',
+    element:<AddNewCourse></AddNewCourse>
   },
 
         
