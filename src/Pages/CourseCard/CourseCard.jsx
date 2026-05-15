@@ -1,11 +1,12 @@
 import React from 'react';
 import { FaHeart, FaStar } from 'react-icons/fa';
+import { MdAccessTimeFilled } from 'react-icons/md';
 import { Link, useLocation, useNavigate } from 'react-router';
 import Swal from 'sweetalert2'
 
 const CourseCard = ({ course }) => {
-    const navigate = useNavigate();
-    const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
     const handleDelete = ()=>{
         Swal.fire({
@@ -36,16 +37,17 @@ const CourseCard = ({ course }) => {
        }).catch(error=>{
         console.log(error)
        })
-    
-    
-    
+ 
     
   });
 });
 
+
+
+
     }
 
-  const { _id, title, thumbnail,category, rating,level, price, students} = course;
+  const { _id, title, thumbnail,category,description, price,duration} = course;
 
   return (
 
@@ -63,15 +65,16 @@ const CourseCard = ({ course }) => {
       <div className="p-6 space-y-4">
         <h2 className="text-2xl font-bold text-gray-800 line-clamp-2"> {title} </h2>
          <div className="flex items-center justify-between">
-             <p className="text-[#000080]/70 font-medium">{level}</p>
-            <span className="flex items-center gap-2 text-yellow-500 font-bold"> <FaStar /> {rating} </span>
+             <p className="text-[#000080]/50 font-medium text-left">{description.slice(0, 60)}...</p>
+           
 
         </div>
 
         <div className="flex justify-between items-center">
 
-          <p className="text-gray-500 font-semibold"> {students}+ Students  </p>
+         <p className='text-[#ea580c] flex items-center gap-1 text-lg'> <MdAccessTimeFilled className='' />{duration}</p>
           <span className="text-2xl font-extrabold text-cyan-600"> ${price} </span> 
+          
            </div>
            <div className='flex gap-5 py-4'>
         

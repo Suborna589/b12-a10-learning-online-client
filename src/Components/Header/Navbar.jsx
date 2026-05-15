@@ -24,8 +24,8 @@ const Navbar = () => {
 
   const linkStyle = ({ isActive }) =>
     isActive
-      ? " font-bold border-b-2 border-yellow-400 pb-1 mr-3"
-      : "text-[#0000FF] hover:[#0000FF] mr-3";
+      ? " font-bold border-b-2 border-linear-to-r from-gray-800 via-blue-700 to-gray-900 pb-1 mr-3"
+      : " font-semibold text-[#023020] hover:[#7CFC00] mr-3";
     const links = 
     <> 
     <NavLink className={linkStyle} to={'/'}>Home</NavLink>
@@ -34,7 +34,7 @@ const Navbar = () => {
     </>
     return (
   <div className='max-w-[1670px] mx-auto mb-3'> 
-         <div className="navbar  relative bg-gradient-to-r from-purple-900/50 via-black/20 to-blue-900/40 ">
+         <div className="navbar  relative bg-linear-to-r from-purple-500/70 via-indigo-500/50 to-blue-500/50">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
