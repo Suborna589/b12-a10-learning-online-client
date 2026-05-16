@@ -125,7 +125,7 @@ const router = createBrowserRouter([
 
     {
         path:"/*",
-        element:<h2>Error404</h2>
+        element:<NotFound></NotFound>
     }
 ]) 
 
