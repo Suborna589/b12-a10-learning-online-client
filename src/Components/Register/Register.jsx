@@ -123,7 +123,7 @@ const [show,setShow]=useState(false);
             passwordError && <span className='text-base  text-orange-500'>{passwordError}</span>
             
           }
-          <div><a className="link link-hover ">Forgot password?</a></div>
+          <div><Link to='/forgot-password' className="link link-hover ">Forgot password?</Link></div>
           <button type='submit' className="btn bg-gradient-to-r from-emerald-400 to-cyan-400 text-white text-lg mt-4  w-full h-14 rounded-full  border-0 shadow-xl ">Sign Up</button>
 
            <p className='font-semibold text-center pt-4 '>Already  Have An Account ? <Link to={"/auth/signIn"} className='text-purple-800 text-base font-bold'>Login</Link>  </p>

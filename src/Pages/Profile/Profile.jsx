@@ -21,11 +21,11 @@ const Profile = () => {
                 <p className='text-base text-gray-500 my-4 text-center'>Manage your personal information and account settings</p>
 
                 <div className='flex justify-center my-20'> 
-                 <div className="card w-120 h-130 bg-base-100 card-xl shadow-sm">
+                 <div className="card w-120 h-150 bg-base-100 card-xl bg-linear-to-r from-cyan-100 via-blue-300/40 to-indigo-400/40 shadow-2xl">
                 <div className="card-body ">
-                <img className='w-24 flex  rounded-full h-24 ml-40' src={`${user ? user.photoURL : userImg}`} />
-                <h2 className=" text-xl font-medium text-center">{user ? user.displayName : "User Name "}</h2>
-                <div className='ml-32'><p className="bg-green-100 text-green-600 w-38 h-10 pt-2 pl-5  rounded-full text-sm">Verified Member</p></div>
+                <img className='w-24 flex  rounded-full h-24 ml-36' src={`${user ? user.photoURL : userImg}`} />
+                <h2 className=" text-xl font-medium text-center ml-8 mb-4">{user ? user.displayName : "User Name "}</h2>
+                <div className='ml-28 mb-4'><p className="bg-green-100 text-green-600 w-38 h-10 pt-2   rounded-full text-sm">Verified Member</p></div>
                 <div className='flex items-center gap-6 border-b pb-5 text-gray-300'>
                   <div className='bg-purple-300/30  pl-3 pt-2 rounded-xl  w-9 h-9 '>  <FaUserEdit className='text-purple-500 text-xl '></FaUserEdit></div>
                     <div>
@@ -43,7 +43,7 @@ const Profile = () => {
                 </div>
                 <div className="justify-center card-actions pt-2">
                 
-                 <Link  to='/update-profile' className="mt-6 w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-2 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition"><FaUserEdit /> Update Profile</Link>
+                 <Link  to='/update-profile' className="mt-6 w-full bg-linear-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white py-2 rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition"><FaUserEdit /> Update Profile</Link>
               </div>
             </div>
           </div>

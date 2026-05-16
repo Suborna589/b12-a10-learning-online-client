@@ -19,6 +19,9 @@ import Home from "../Pages/Home/Home";
 import CourseDetails from "../Pages/CourseDetails/CourseDetails";
 import AddNewCourse from "../Pages/AddNewCourse/AddNewCourse";
 import UpdateCourse from "../Pages/UpdateCourse/UpdateCourse";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import Loading from "../Components/Loading/Loading";
+import EnrollCourse from "../Pages/EnrollCourse/EnrollCourse";
 
 
 
@@ -41,46 +44,43 @@ const router = createBrowserRouter([
            
               {
       path:'courses',
-      element:<AllCourses></AllCourses>,
-      loader:()=> fetch('http://localhost:5183/courses')
+      element:<PrivateRoute><AllCourses></AllCourses>,</PrivateRoute>,
+      loader:()=> fetch('http://localhost:5183/courses'),
+        hydrateFallbackElement:<Loading></Loading>,
 
     },  
 
   { 
     path:'dashboard',
-    element:<Dashboard></Dashboard>
+    element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>
 
   }, 
 
   {
     path:'/courseDeatils/:id',  
-    element:<CourseDetails></CourseDetails>
+    element:<PrivateRoute><CourseDetails></CourseDetails></PrivateRoute>
 
   },
 
   {
     path: 'addCourse',
-    element:<AddNewCourse></AddNewCourse>
+    element:<PrivateRoute><AddNewCourse></AddNewCourse></PrivateRoute>
   }, 
+ 
+  {
+    path:'enrollCourse',
+    element:<EnrollCourse></EnrollCourse>
 
+  },
   {
     path:'/updateCourse/:id',
     loader:({params})=>fetch(`http://localhost:5183/courses/${params.id}`),
-    element:<UpdateCourse></UpdateCourse>
+    element:<PrivateRoute><UpdateCourse></UpdateCourse></PrivateRoute>,
+    hydrateFallbackElement:<Loading></Loading>,
   },
 
         
-     
-      
-  
-
-
-
-
-
-
-
-
+    
 
             {
                 path:"/profile",

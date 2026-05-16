@@ -50,7 +50,7 @@ const SignIn = () => {
                     <input type={show ? "text" : "password"} className="input rounded-xl w-full h-14 border-3 border-purple-500 shadow-2xl" name="password" placeholder=" Your Password" required />
                     <button onClick={()=>setShow(!show)} className='absolute top-4 right-8  text-2xl cursor-pointer    '>{!show? <LuEyeClosed/> : <IoEyeSharp/>} </button>
                   </div>
-          <div><a className="link link-hover text-white">Forgot password?</a></div>
+          <div><Link to='/forgot-password' className="link link-hover text-white">Forgot password?</Link></div>
            {
             error && <p className='text-xs text-red-500'>{error}</p>
           }

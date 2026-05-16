@@ -1,2 +1,11 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+.theme-dark {
+  --dark-text: #292929;
+  --light-text: #F9F8F8;  
+  --dark-background: #2F4550;
+  --light-background: #586F7C;
+  --accent: #B8DBD9;
+  --button-border: #B8DBD9;
+} 

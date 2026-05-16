@@ -3,11 +3,17 @@ import { Link, useParams } from "react-router";
 import Navbar from "../../Components/Header/Navbar";
 import { FaStar,FaUsers,FaClock, FaLayerGroup} from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useRef } from "react";
+import { use } from "react";
+import { AuthContext } from "../../Context/AuthContext";
+import { Crosshair, CrossIcon, X } from "lucide-react";
 
 const CourseDetails = () => {
+  const {user}= use(AuthContext)
   const { id } = useParams();
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
+  const  courseModalRef = useRef(null)
 
   useEffect(() => {
     fetch(`http://localhost:5183/courses/${id}`)
@@ -42,7 +48,52 @@ const CourseDetails = () => {
         </div>
       </div>
     );
+
+
+
+    
+  } 
+
+  
+      const openModal = () => {
+    courseModalRef.current?.showModal();
+  }; 
+
+    const closeModal = () => {
+    courseModalRef.current?.close();
+  };
+ 
+  const handleCourse = (e) => {
+    e.preventDefault();
+    const form =e.target;
+    const courseId =  course._id;
+     const formData = {
+             course:courseId,
+             name:form.name.value,
+             email:form.email.value,
+             title :form.title.value,
+             price:form.price.value,
+             status:'pending'
+
+       } 
+       fetch('http://localhost:5183/courseBuy',{
+        method:"POST",
+        headers: { 
+          'content-type': 'application/json',
+          
+        }, 
+        body: JSON.stringify(formData) 
+       })
+       .then(res=>res.json())
+       .then(data=>{
+        console.log(data)
+       }).catch(error=>{
+        console.log(error)
+       })
+    
+    console.log(formData);
   }
+  
 
   return (
     <div className=" text-white">
@@ -156,27 +207,93 @@ const CourseDetails = () => {
               className=" rounded-[40px] w-[440px]  md:w-[600px] h-[500px] object-cover border border-slate-800 shadow-2xl "
             />
 
-            <div className="absolute bottom-26 left-6 lg:left-10  bg-linear-to-r from-gray-800 via-blue-700 to-gray-900 backdrop-blur-md px-30 lg:px-48 py-12 rounded-2xl border border-slate-700">
-              <h2 className="text-3xl font-bold text-cyan-400">
+           
+          </motion.div>   
+
+
+           <div className=" left-6 lg:left-6  bg-linear-to-r from-blue-500 via-cyan-500 to-teal-500 backdrop-blur-md  my-4  lg:px-43 py-12 rounded-2xl border border-slate-700">
+              <h2 className="text-3xl font-bold text-blue-700">
                 ${course.price}
               </h2>
               <p className="text-slate-300 text-sm pt-3">
                 Full Lifetime Access
               </p>
                <div className="mt-10 ">
-                <button href="#_" className="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
-                <span className="w-full h-full bg-linear-to-r from-lime-500 via-green-500 to-emerald-500 group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
+                <button  onClick={openModal} href="#_" className="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
+                <span className="w-full h-full bg-linear-to-r from-amber-500 via-orange-500 to-red-500 group-hover:via-[#ff5478] group-hover:to-[#ff8a05] absolute"></span>
              <span className="relative px-8 py-3 transition-all ease-out rounded-md group-hover:bg-opacity-0 duration-400">
         <span className="relative text-white">Enroll Now</span>
     </span>
 </button>
 
+      <dialog ref={courseModalRef} className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box bg-white">
+            <button
+              className="btn bg-cyan-500 text-white hover:bg-cyan-600 ml-100"
+              onClick={() => {
+               
+                closeModal();
+              } } >
+              <X/>
+            </button>
+          <h3 className="font-bold text-xl text-cyan-600">
+              Enroll in This Course
+          </h3>
+
+          <p className="py-4 text-gray-600">
+            You are about to enroll in this course. Confirm to continue.
+          </p>
+
+          <form  onSubmit={handleCourse} className="my-4">
+         <fieldset className="fieldset">
+          <label className="label text-black">Your Name</label>
+          <input defaultValue={user.displayName} readOnly type="text" className="input w-full  rounded-xl  text-black " name="name" placeholder="Your Name" />
+          <label className="label text-black">Email</label>
+          <input type="email" className="input   rounded-xl text-black w-full  " name='email'  defaultValue={user.email} readOnly  placeholder="Email" />
+          <label className="label text-black">Title</label>
+          <input type="text" className="input   rounded-xl text-black w-full " name='title'  placeholder="Course" />
+          <label className="label text-black">Price</label>
+          <input type="integer" className="input   rounded-xl text-black w-full " name='price'  placeholder="Price" />
+       
+            <button type='submit'
+              className="btn bg-yellow-500 text-white hover:bg-cyan-600 mt-6 h-13 text-lg"
+              onClick={() => {
+                alert("Successfully Enrolled!");
+                closeModal();
+              }}
+            >
+              Confirm
+            </button>
+      
+
+         <div className="flex items-center gap-8 modal-action ">
+             
+           
+         </div>
+ 
+        </fieldset>
+      </form>
+         
+
+        </div>
+      </dialog>
+
+
            </div>
             </div>
-          </motion.div> 
+
+
+
+
+
+          
 
 
       </div>
+
+
+
+      
       
     </div>
   );

@@ -39,9 +39,9 @@ const handleUpdate=(e)=>{
   };
 
   return (
-      <div className="flex justify-center  items-center bg-[url('https://i.ibb.co.com/q3XD6d1W/sinup-bg.jpg')] bg-cover min-h-screen bg-center">
+      <div className="flex justify-center  items-center bg-cover min-h-screen bg-center">
         <Toaster position="top-center" />
-    <div className="card bg-white/30 w-full   max-w-xl   shadow-2xl py-5">
+    <div className="card bg-linear-to-r from-yellow-200 via-yellow-400 to-yellow-600 w-full   max-w-xl   shadow-2xl py-5">
     <h1 className='font-semibold text-2xl text-center text-white'>Update Profile</h1>
       <form onSubmit={handleUpdate} className="card-body">
         <fieldset className="fieldset ">
@@ -54,7 +54,7 @@ const handleUpdate=(e)=>{
          
           
         
-          <button type="submit" className="btn btn-neutral mt-4">Save Change</button>
+          <button type="submit" className="btn rounded-2xl text-white text-lg h-12 bg-linear-to-r  from-lime-500 via-green-500 to-emerald-500 mt-4">Save Change</button>
          
           
         </fieldset>
