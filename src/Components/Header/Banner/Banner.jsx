@@ -7,26 +7,22 @@ const slides = [
   {
     id: 1,
     title: "Master New Skills Advance Your Future",
-    description:
-      "Master modern skills with premium online courses and interactive learning experiences.",
-    image:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1600&auto=format&fit=crop",
+    description: "Master modern skills with premium online courses and interactive learning experiences.",
+    image:  "https://i.ibb.co.com/84S3WMs9/carrier.webp",
   },
   {
     id: 2,
     title: "Upgrade Your Future Skills",
-    description:
-      "Explore advanced technology, business, and creative courses designed by experts.",
-    image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop",
+    description: "Explore advanced technology, business, and creative courses designed by experts.",
+    image:"https://i.ibb.co.com/zTw1M7Kt/skill.jpg",
+     
   },
   {
     id: 3,
     title: "Build Your Dream Career",
-    description:
-      "Join thousands of students learning modern web development and AI technologies.",
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1600&auto=format&fit=crop",
+    description:"Join thousands of students learning modern web development and AI technologies.",
+    image:"https://i.ibb.co.com/sDbG1Sb/dream.webp",
+
   },
 ];
 
@@ -77,10 +73,10 @@ const Banner = () => {
           />
 
           
-          <div className="absolute inset-0 bg-black/60"></div>
+          <div className="absolute inset-0 bg-black/50"></div>
 
           
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/50 via-black/20 to-blue-900/40"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-yellow-500/10 via-lime-500/30 to-green-500/50"></div>
         </motion.div>
       </AnimatePresence>
 
