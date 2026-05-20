@@ -1,60 +1,14 @@
 
 
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import Navbar from "../../Components/Header/Navbar";
 import { use } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import userImg  from  "../../assets/useImg.jpeg"
 import { FaBars, FaBookOpen, FaHome, FaLayerGroup, FaPlusCircle, FaTimes, FaUserGraduate } from "react-icons/fa";
 import {motion} from "framer-motion";
-import { NavLink } from "react-router";
-
-const enrolledCourses = [
-    
-  {
-    id: 1,
-    title: "Web Development Basics",
-    instructor: "John Doe",
-    progress: 75,
-    image: "https://i.ibb.co.com/Fqff2wV3/webdevlop.jpg",
-  },
-  {
-    id: 2,
-    title: "Data Structures in C++",
-    instructor: "Jane Smith",
-    progress: 40,
-    image: "https://i.ibb.co.com/BKcg9jyD/data-C.jpg",
-  },
-  {
-    id: 3,
-    title: "MERN Stack Project",
-    instructor: "Mike Johnson",
-    progress: 60,
-    image: "https://i.ibb.co.com/BHVS7ZQW/mernstack.jpg",
-  },
-  {
-    id: 4,
-    title: "Python Programming",
-    instructor: "Alex Brown",
-    progress: 90,
-    image: "https://i.ibb.co.com/gMYknNb0/python.jpg",
-  },
-  {
-    id: 5,
-    title: "Database Management",
-    instructor: "Sarah Wilson",
-    progress: 30,
-    image: "https://i.ibb.co.com/QFq65zfJ/database.avif",
-  },
-  {
-    id: 6,
-    title: "Digital Marketing",
-    instructor: "David Lee",
-    progress: 50,
-    image: "https://i.ibb.co.com/rKKwYBgM/digital.avif",
-  },
-];
-
+import {  NavLink } from "react-router";
+import { useLoaderData } from "react-router";
 
 
   const navLinks = [
@@ -92,14 +46,13 @@ const enrolledCourses = [
 
 const EnrollCourse = () => {
     const {user} = use(AuthContext)
+    const {enroll , _id}= useLoaderData()
     const [open, setOpen]=useState()
+   console.log(enroll, _id);
 
-  const getProgressColor = (progress) => {
-    if (progress >= 80) return "bg-linear-to-r from-lime-500 via-green-500 to-emerald-500";
-    if (progress >= 60) return "bg-linear-to-r from-indigo-500 via-blue-500 to-cyan-500";
-    if (progress >= 40) return "bg-linear-to-r from-red-500 via-orange-500 to-yellow-500";
-    return "bg-red-500";
-  };
+    
+
+
 
   return (
     <div className="min-h-screen bg-gray-100  flex gap-1   lg:w-[1350px]    h-[700px] ">
@@ -221,60 +174,35 @@ const EnrollCourse = () => {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {enrolledCourses.map((course) => (
+       
           <div
-            key={course.id}
+            
             className="bg-white w-[330px] h-[440px] rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300"
           >
             <img
-              src={course.image}
-              alt={course.title}
+              src=''
+              alt=''
               className="w-full h-48 object-cover"
             />
 
             <div className="p-5">
               <h2 className="text-2xl font-bold mb-2">
-                {course.title}
+               
               </h2>
 
               <p className="text-gray-500 mb-4">
-                Instructor: {course.instructor}
+                Instructor:
               </p>
-              <div className="w-full bg-gray-200 rounded-full h-3 mb-2 overflow-hidden">
-                <div
-                  className={`${getProgressColor(
-                    course.progress
-                  )} h-3 rounded-full transition-all duration-500`}
-                  style={{ width: `${course.progress}%` }}
-                ></div>
-              </div>
+             
 
-              <div className="flex justify-between items-center mb-4">
-                <span className="text-sm text-gray-500">
-                  Progress
-                </span>
-
-                <span
-                  className={`font-semibold ${
-                    course.progress >= 80
-                      ? "text-green-600"
-                      : course.progress >= 60
-                      ? "text-blue-600"
-                      : course.progress >= 40
-                      ? "text-yellow-600"
-                      : "text-red-600"
-                  }`}
-                >
-                  {course.progress}%
-                </span>
-              </div>
+           
 
               <button className="w-full bg-linear-to-r from-green-500 via-emerald-500 to-teal-500 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition">
                 Continue Learning
               </button>
             </div>
           </div>
-        ))}
+        
       </div>
     </div>
     </div>

@@ -26,7 +26,7 @@ const slides = [
   },
 ];
 
-const Banner = () => {
+const Banner = ({course}) => {
   const [current, setCurrent] = useState(0);
 
   
@@ -171,7 +171,7 @@ const Banner = () => {
 
       <div className="absolute bottom-20 right-20 w-72 h-72 bg-blue-600/30 blur-[120px] rounded-full"></div>
     </motion.div> 
-    <Course></Course>
+    <Course course={course}></Course>
    </div>
   );
 };

@@ -2,63 +2,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaStar, FaUsers,FaBookOpen,FaChalkboardTeacher,} from "react-icons/fa";
+import { Link} from "react-router";
 
-const courses = [
-  {
-    id: 1,
-    title: "Web Development Bootcamp",
-    image:"https://i.ibb.co.com/HpHjTQxS/Web.jpg",
-    instructor: "John Carter",
-    students: 1200,
-    rating: 4.9,
-    price: "$49",
-  },
-  {
-    id: 2,
-    title: "UI/UX Design Masterclass",
-    image:"https://i.ibb.co.com/h1TSX7Hz/Ui.jpg",   
-    instructor: "Sarah Lee",
-    students: 980,
-    rating: 4.8,
-    price: "$59",
-  },
-  {
-    id: 3,
-    title: "Python for Beginners",
-    image:"https://i.ibb.co.com/4RgcPm54/python-B.jpg",
-    instructor: "David Miller",
-    students: 1450,
-    rating: 4.7,
-    price: "$39",
-  },
-  {
-    id: 4,
-    title: "Digital Marketing Strategy",
-    image:"https://i.ibb.co.com/WvygcnhG/Marketing.webp",
-    instructor: "Emma Watson",
-    students: 870,
-    rating: 4.9,
-    price: "$44",
-  },
-  {
-    id: 5,
-    title: "Machine Learning Basics",
-    image:"https://i.ibb.co.com/DgkxK1XG/machine.jpg",
-    instructor: "Michael Smith",
-    students: 1120,
-    rating: 4.8,
-    price: "$69",
-  },
-  {
-    id: 6,
-    title: "Graphic Design Essentials",
-    image:"https://i.ibb.co.com/JwxVcvpb/graphics.jpg",
-    instructor: "Sophia Brown",
-    students: 760,
-    rating: 4.6,
-    price: "$35",
-  },
-];
+
 
 const instructors = [
   {
@@ -90,7 +36,9 @@ const fadeUp = {
   }),
 };
 
-const PopularCourses = () => {
+const PopularCourses = ({course}) => {
+
+  
   return (
     <div className=" text-white">
       <section className="max-w-7xl mx-auto px-5 py-20">
@@ -111,52 +59,55 @@ const PopularCourses = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {courses.map((course, index) => (
+          {course.map((cour, index) => (
             <motion.div
-              key={course.id}
+              key={cour._id}
               variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               custom={index}
               whileHover={{ scale: 1.04 }}
-              className=" rounded-3xl overflow-hidden border border-slate-800 shadow-lg"
+              className=" relative  rounded-3xl overflow-hidden border border-slate-800 shadow-lg"
             >
               <img
-                src={course.image}
-                alt={course.title}
-                className="h-56 w-full object-cover"
-              />
+                src={cour.thumbnail}
+                alt={cour.title}
+                className="h-56 w-full object-cover "
+              /> 
+               
 
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-3 text-blue-600">
-                  {course.title}
+                 <span className="absolute  left-4 bg-[#00FF00]  px-4 py-1 rounded-full text-sm font-semibold">{cour.category}</span>
+                <h3 className="text-2xl font-bold mb-3 text-blue-600 mt-10 ">
+                  {cour.title}
+                </h3>
+                <h3 className="text-base font-bold mb-2 text-green-300">
+                  {cour.created_by}
                 </h3>
 
-                <p className="text-amber-500 mb-4">
-                  Instructor: {course.instructor}
-                </p>
+
+                <p className="text-[#000080]/50 font-medium text-left">{cour.description.slice(0, 60)}...</p>
 
                 <div className="flex justify-between text-sm text-green-600 mb-5">
                   <span className="flex items-center gap-2">
                     <FaUsers />
-                    {course.students}
+                    {cour.students}
                   </span>
 
                   <span className="flex items-center gap-2">
                     <FaStar className="text-yellow-400" />
-                    {course.rating}
+                    {cour.rating}
                   </span>
                 </div>
 
                 <div className="flex items-center justify-between">
                   <h4 className="text-2xl font-bold text-cyan-400">
-                    {course.price}
+                    {cour.price}
                   </h4>
-
-                  <button className="px-5 py-2 rounded-full bg-linear-to-r from-lime-500 via-green-500 to-emerald-500 hover:bg-cyan-600 transition-all duration-300 font-semibold">
-                    Enroll Now
-                  </button>
+                  <Link to={`/courseDeatils/${cour._id}`} className="px-5 py-2 rounded-full bg-linear-to-r from-lime-500 via-green-500 to-emerald-500 hover:bg-cyan-600 transition-all duration-300 font-semibold">
+                   View Deatils
+                  </Link>
                 </div>
               </div>
             </motion.div>
@@ -268,9 +219,9 @@ const PopularCourses = () => {
                 {teacher.role}
               </p>
 
-              <button className="mt-6 px-6 py-2 rounded-full bg-cyan-500 hover:bg-cyan-600 transition-all duration-300">
+              <Link  className="mt-6 px-6 py-2 rounded-full bg-cyan-500 hover:bg-cyan-600 transition-all duration-300">
                 View Profile
-              </button>
+              </Link>
             </motion.div>
           ))}
         </div>

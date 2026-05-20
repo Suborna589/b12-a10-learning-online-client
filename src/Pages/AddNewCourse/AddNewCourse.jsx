@@ -1,12 +1,13 @@
 import React from 'react';
 import Navbar from '../../Components/Header/Navbar';
 import Swal from 'sweetalert2';
-import { useLocation } from 'react-router';
-import { useNavigate } from 'react-router';
+
+import { use } from 'react';
+import { AuthContext } from '../../Context/AuthContext';
 
 const AddNewCourse = () => {
-   const location = useLocation();
-      const navigate = useNavigate();
+  const {user}=use(AuthContext)
+
     
     const handleAddCourse = (e)=>{
         e.preventDefault() 
@@ -21,7 +22,8 @@ const AddNewCourse = () => {
            rating : 4.6,
            instructor:'Michael Brown',
           description : form.description.value,
-          level: 'Intermediate'
+          level: 'Intermediate',
+          created_by:user.email,
 
        } 
 
@@ -36,7 +38,7 @@ const AddNewCourse = () => {
        .then(data=>{
         console.log(data)
         form.reset();
-        navigate(`${location.state ? location.state : '/courses'}`)
+    
         Swal.fire({
         position: "top-end",
         icon: "success",

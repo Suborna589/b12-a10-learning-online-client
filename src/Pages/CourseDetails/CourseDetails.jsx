@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import Navbar from "../../Components/Header/Navbar";
 import { FaStar,FaUsers,FaClock, FaLayerGroup} from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -7,19 +7,28 @@ import { useRef } from "react";
 import { use } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { Crosshair, CrossIcon, X } from "lucide-react";
+import Swal from "sweetalert2";
+import EnrollCourse from "../EnrollCourse/EnrollCourse";
+import { RiEditFill } from "react-icons/ri";
+import { MdDelete } from "react-icons/md";
+
 
 const CourseDetails = () => {
   const {user}= use(AuthContext)
   const { id } = useParams();
-  const [course, setCourse] = useState(null);
+  const [course, setCourse] = useState([]);
   const [loading, setLoading] = useState(true);
-  const  courseModalRef = useRef(null)
+  const  courseModalRef = useRef(null) 
+  const navigate =useNavigate();
+
+
 
   useEffect(() => {
     fetch(`http://localhost:5183/courses/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setCourse(data);
+        console.log(data)
         setLoading(false);
       })
       .catch((error) => {
@@ -37,22 +46,52 @@ const CourseDetails = () => {
         </div>
       </div>
     );
-  }
-
-  if (!course) {
-    return (
-      <div className="  text-white">
-        <Navbar />
-        <div className="text-center pt-40">
-          <h2 className="text-3xl font-bold">Course Not Found</h2>
-        </div>
-      </div>
-    );
+  }  
 
 
-
+       const handleDelete = ()=>{
+        Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
+  if (result.isConfirmed)
+      fetch(`http://localhost:5183/courses/${course._id}`,{
+        method:"DELETE",
+        headers:{
+            'content-type':'application/json',
+        },
+       
+       }) 
+       .then((res)=>res.json())
+       .then(data=>{
+        console.log(data)
+        navigate('/courses')
+        Swal.fire({
+         title: "Deleted!",
+         text: "Your file has been deleted.",
+         icon: "success"
+       }).catch(error=>{
+        console.log(error)
+       })
+ 
     
-  } 
+  });
+}); 
+
+
+
+
+
+
+
+    }
+
+ 
 
   
       const openModal = () => {
@@ -73,6 +112,8 @@ const CourseDetails = () => {
              email:form.email.value,
              title :form.title.value,
              price:form.price.value,
+             thumbnail:form.thumbnail.value,
+             instructor:form.instructor.value,
              status:'pending'
 
        } 
@@ -86,12 +127,27 @@ const CourseDetails = () => {
        })
        .then(res=>res.json())
        .then(data=>{
-        console.log(data)
+          if(data.insertedId){
+          
+         Swal.fire({
+          position: "top-end",
+         icon: "success",
+         title: "Your work has been saved",
+          showConfirmButton: false,
+          timer: 1500
+           });
+            closeModal()
+
+          }
        }).catch(error=>{
         console.log(error)
        })
+
+
+
+     
     
-    console.log(formData);
+   
   }
   
 
@@ -191,6 +247,11 @@ const CourseDetails = () => {
              <p className="text-gray-500 mt-6 leading-relaxed text-lg text-left ml-8 max-w-2xl">
               {course.description}
             </p>
+            <div className="flex items-center  gap-4 ml-24">
+              <Link to={`/updateCourse/${course._id}`} className=" w-32 text-lg mt-12 mb-2 btn rounded-lg bg-linear-to-r from-amber-500 via-orange-500 to-red-500 px-3 text-sm "><span className=" text-white flex items-center gap-1"> <RiEditFill />Update </span></Link>
+               <button  type='submit' onClick= {handleDelete} className="btn mt-12 mb-2  w-32  text-white bg-linear-to-r from-rose-500 via-pink-500 to-red-500"><span className="flex items-center items-center "><MdDelete  className='text-xl'/>Delete</span></button>
+              
+            </div>
           </div>
 
             <motion.div
@@ -204,7 +265,7 @@ const CourseDetails = () => {
             <img
               src={course.thumbnail}
               alt={course.title}
-              className=" rounded-[40px] w-[440px]  md:w-[600px] h-[500px] object-cover border border-slate-800 shadow-2xl "
+              className=" rounded-[40px] w-[400px]  md:w-[600px] h-[500px] object-cover border border-slate-800 shadow-2xl "
             />
 
            
@@ -254,13 +315,15 @@ const CourseDetails = () => {
           <input type="text" className="input   rounded-xl text-black w-full " name='title'  placeholder="Course" />
           <label className="label text-black">Price</label>
           <input type="integer" className="input   rounded-xl text-black w-full " name='price'  placeholder="Price" />
+          <label className="label text-black">Thumbnail</label>
+          <input type="url" className="input   rounded-xl text-black w-full " name='thumbnail'  placeholder="Course Thumbnail" />
+          <label className="label text-black">Instructor</label>
+          <input type="text" className="input   rounded-xl text-black w-full " name='instructor'  placeholder="Instructor Name" />
        
             <button type='submit'
               className="btn bg-yellow-500 text-white hover:bg-cyan-600 mt-6 h-13 text-lg"
-              onClick={() => {
-                alert("Successfully Enrolled!");
-                closeModal();
-              }}
+            
+            
             >
               Confirm
             </button>
@@ -276,11 +339,13 @@ const CourseDetails = () => {
          
 
         </div>
-      </dialog>
+      </dialog> 
 
 
            </div>
-            </div>
+            </div> 
+
+
 
 
 

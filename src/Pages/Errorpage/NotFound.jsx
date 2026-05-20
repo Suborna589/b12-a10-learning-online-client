@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from "react-router";
 
+
+
 const NotFound = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-4 text-center">
@@ -13,9 +15,11 @@ const NotFound = () => {
         Sorry, the page you are looking for doesn’t exist or has been moved.
       </p>
       <Link to="/"className="mt-6 bg-linear-to-r from-yellow-500 via-lime-500 to-green-500 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition" >  Go Back Home </Link>
-      
+   
     </div>
   );
-};
+}; 
+
+
 
 export default NotFound;

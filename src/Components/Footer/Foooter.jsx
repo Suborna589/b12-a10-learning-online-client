@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-10">        
           <div className="">
            <div className="flex items-center gap-2 ml-16 lg:ml-4" >
-             <img className='w-12 h-12 rounded-full' src={learnLogo} alt="" srcset="" />
+             <img className='w-12 h-12 rounded-full' src={learnLogo}  />
             <h2 className="text-3xl font-extrabold text-white mb-4">
               Learniverse
             </h2>

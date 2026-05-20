@@ -2,11 +2,12 @@ import React, { use, useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import learnLogo from "../../assets/learnLogo.png"
 import { AuthContext } from '../../Context/AuthContext';
-import userImg from "../../assets/useImg.jpeg";
 import { LuLogOut } from "react-icons/lu";
 import { NavLink } from 'react-router';
 import { FaUserLarge } from "react-icons/fa6";
 import toast, { Toaster } from 'react-hot-toast';
+import { MdModeEdit } from "react-icons/md";
+import { FaDiscourse } from "react-icons/fa";
 
 
 
@@ -81,56 +82,58 @@ const Navbar = () => {
 
   
     
-     <div className="dropdown ">
-
+   
 
     
-      
+
+    
+
+
+    {
+      user ?   <div className="dropdown ">
       
       <div tabIndex={0} role="button" className="cursor-pointer">
         <img
           className="w-14 h-14 rounded-full border-2 border-blue-500 object-cover"
-          src={user ? user.photoURL : userImg}
+          src={user.photoURL }
           alt="user"
         />
-      </div>
-
-      
-        
-
+      </div> 
+     
       <ul
         tabIndex={0}
-        className="menu menu-sm text-black   dropdown-content bg-white rounded-box z-50 mt-3 w-40 p-2 shadow-lg"
+        className="menu menu-sm text-black   dropdown-content bg-white rounded-box z-50 mt-3 w-56 h-56 p-2 shadow-lg"
       >
-         <label onChange={(e)=> handleThemeToggle(e.target.checked)} className="toggle text-base-content mb-2 ml-12">
-  <input type="checkbox"  className="theme-controller" />
+         <label onChange={(e)=> handleThemeToggle(e.target.checked)} className="toggle text-base-content mb-2 ml-24">
+  <input type="checkbox"  className="" />
 
   <svg aria-label="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></g></svg>
 
   <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></g></svg>
 
 </label>
+       <div>
+         <h1 className='text-base font-bold'>{user.displayName}</h1>
+        <span className='text-base text-gray-600 mb-3'>{user.email}</span>
+       </div>
         <li className='text-black'>
-          <Link className='text-center flex ' to="/profile"> <FaUserLarge/>Profile</Link>
+          <Link className='text-center flex text-sm ' to="/profile"> <FaUserLarge/>Profile</Link>
+        </li>
+
+        <li className='text-black'> 
+          <Link  className='text-center flex text-sm ' to="/update-profile"> <MdModeEdit></MdModeEdit>Update Profile</Link>
+        </li>
+        <li>
+          <Link className='text-center flex text-sm ' to="/myCourse"> <FaDiscourse></FaDiscourse>My Course</Link>
         </li>
 
         <li>
-          <Link to="/update-profile">Update Profile</Link>
-        </li>
-
-        <li>
-          <button onClick={handleLogOut} className=' btn bg-gradient-to-r from-teal-400 to-yellow-200 '>LogOut <LuLogOut></LuLogOut></button>
+          <button onClick={handleLogOut} className=' btn bg-linear-to-r from-lime-500 via-green-500 to-emerald-500 text-base  text-white'>LogOut <LuLogOut></LuLogOut></button>
         </li>
       </ul>
 
       
-    </div>
-
-    
-
-
-    {
-      user ?" ":    <div className='flex'> 
+    </div>:    <div className='flex'> 
                       <Link to="/auth/signIn" className="btn text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5 mr-6">Login</Link>
                        <Link to={'/auth/signUp'} className="btn text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-base text-sm px-4 py-2.5 text-center leading-5">SignUp</Link>
                     

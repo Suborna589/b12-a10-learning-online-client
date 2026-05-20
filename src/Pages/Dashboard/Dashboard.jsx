@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import { FaBookOpen,FaPlusCircle, FaLayerGroup,FaBars, FaTimes, FaHome,FaUserGraduate,} from "react-icons/fa";
 import { motion } from "framer-motion";
-import { NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import { use } from "react";
 import { AuthContext } from '../../Context/AuthContext';
 import userImg from '../../assets/useImg.jpeg'
 import UpdateCourse from "../UpdateCourse/UpdateCourse";
 import { MdDashboardCustomize } from "react-icons/md";
+import { useParams } from "react-router";
 
 
 
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
+  const {_id:courseId} =useParams();
  const {user} = use(AuthContext)
 
 
@@ -29,22 +31,19 @@ const Dashboard = () => {
     },
     {
       name: "My Enrolled Courses",
-      path: "/enrollCourse",
       icon: <FaUserGraduate />,
+      path:`/enrollCourse/${courseId}`
     },
-    {
-      name: "Add Course",
-      path: "/addCourse",
-      icon: <FaPlusCircle />,
-    },
-    {
-      name: "Update Course",
-      path: '/updateCourse/:id',
-      icon: <FaLayerGroup />,
-    },
+   
+  
     {
       name: "All Courses",
       path: "/courses",
+      icon: <FaBookOpen />,
+    },
+    {
+      name: "My Courses",
+      path: "/myCourse",
       icon: <FaBookOpen />,
     },
   ];
@@ -161,7 +160,7 @@ const Dashboard = () => {
             <motion.div
               whileHover={{ y: -8 }}
               className="bg-linear-to-r from-green-500 via-emerald-500 to-teal-500 p-6 rounded-3xl " >
-              <h3 className="text-white mb-3"> Enrolled Courses  </h3>
+            <h1  className="text-white mb-3"> Enrolled Courses  </h1>
 
               <h2 className="text-5xl font-bold text-cyan-400">12</h2>
             </motion.div>
