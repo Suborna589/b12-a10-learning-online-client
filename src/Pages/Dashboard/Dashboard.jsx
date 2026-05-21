@@ -7,13 +7,12 @@ import { AuthContext } from '../../Context/AuthContext';
 import userImg from '../../assets/useImg.jpeg'
 import UpdateCourse from "../UpdateCourse/UpdateCourse";
 import { MdDashboardCustomize } from "react-icons/md";
-import { useParams } from "react-router";
+
 
 
 
 const Dashboard = () => {
   const [open, setOpen] = useState(false);
-  const {_id:courseId} =useParams();
  const {user} = use(AuthContext)
 
 
@@ -32,7 +31,7 @@ const Dashboard = () => {
     {
       name: "My Enrolled Courses",
       icon: <FaUserGraduate />,
-      path:`/enrollCourse/${courseId}`
+      path:"/enrollCourse",
     },
    
   

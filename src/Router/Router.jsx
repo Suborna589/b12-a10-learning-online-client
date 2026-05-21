@@ -78,8 +78,7 @@ const router = createBrowserRouter([
 
  
   {
-    path:'enrollCourse/:courseId',
-    loader:({params}) =>fetch(`http://localhost:5183/courseBuy/${params.courseId}`),
+    path:"/enrollCourse",
     element:<EnrollCourse></EnrollCourse>
 
   },

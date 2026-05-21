@@ -1,14 +1,14 @@
 
-
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import Navbar from "../../Components/Header/Navbar";
 import { use } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import userImg  from  "../../assets/useImg.jpeg"
 import { FaBars, FaBookOpen, FaHome, FaLayerGroup, FaPlusCircle, FaTimes, FaUserGraduate } from "react-icons/fa";
 import {motion} from "framer-motion";
-import {  NavLink } from "react-router";
-import { useLoaderData } from "react-router";
+import {  NavLink} from "react-router";
+import Loading from "../../Components/Loading/Loading";
+
 
 
   const navLinks = [
@@ -46,9 +46,41 @@ import { useLoaderData } from "react-router";
 
 const EnrollCourse = () => {
     const {user} = use(AuthContext)
-    const {enroll , _id}= useLoaderData()
+    const [enroll,setEnroll]=useState([])
+     const [loading, setLoading] = useState(true);
+     const [showCard, setShowcard]=useState(6);
+     const [expanded, setExpanded]=useState(false)
     const [open, setOpen]=useState()
-   console.log(enroll, _id);
+  
+    
+   useEffect(() => {
+   
+  if (!user?.email) return;
+    fetch(`http://localhost:5183/courseBuy?email=${user.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setEnroll(data)
+        setLoading(false)
+        
+      })
+      .catch((err) => console.log(err));
+
+  }, [user?.email]);   
+
+
+  const handleShowCard = () => {
+  if (expanded) {
+    setShowcard(6);
+    setExpanded(false);
+  } else {
+    setShowcard(enroll.length);
+    setExpanded(true);
+  }
+};
+
+ 
+   
 
     
 
@@ -131,8 +163,8 @@ const EnrollCourse = () => {
             </button>
 
             <div className="">
-              <h2 className="text-2xl font-bold"> My Enroll Course</h2>
-              <p className="text-gray-500 text-sm"> Welcome  </p>
+              <h2 className="text-2xl font-bold"> My Enrolled Courses</h2>
+              <p className="text-gray-600 text-sm">Welcome </p>
             </div>
           </div>
           <motion.div  whileHover={{ scale: 1.05 }}className="flex items-center gap-4  px-4 py-2 rounded-2xl"  >
@@ -165,45 +197,69 @@ const EnrollCourse = () => {
 
      </header>
         
-      <h1 className="text-4xl font-bold mb-2 ">
+      <h1 className="text-4xl font-bold mb-2 text-left ml-7 mt-14">
         My Enrolled Courses
-      </h1>
+      </h1> 
+       <p className="text-gray-600 text-sm text-left ml-7 mb-9"> All courses enrolled by the logged-in user  </p>
 
-      <p className="text-gray-500 mb-8">
-        Browse all your enrolled courses
-      </p>
+       <div>
+        { 
+        enroll.length == 0 ?( 
+          <p>No courses Found </p>
+        ):
+        (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-       
-          <div
-            
-            className="bg-white w-[330px] h-[440px] rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300"
-          >
+            {
+              enroll.slice(0, showCard).map(enrol =><div key={enrol._id}  className="bg-white rounded-[30px] shadow-xl overflow-hidden hover:-translate-y-2 transition">
+
+                <div className="card bg-base-100 w-96 shadow-sm">
+            <figure className="px-10 pt-10">
             <img
-              src=''
-              alt=''
-              className="w-full h-48 object-cover"
-            />
+           src={enrol.thumbnail}
+          alt="Shoes"
+         className="rounded-xl" />
+       </figure>
+      <div className="card-body  items-center text-left">
+      <h2 className="card-title">{enrol.title}</h2>
+      <p className="text-left text-amber-500"> Instructor:{enrol.instructor}</p>
+      <p className="text-base font-semibold text-lime-500">${enrol.price}</p>
+      <span
+  className="inline-block mt-3 px-3 py-1 text-xs text-center rounded-full font-semibold bg-red-100 text-red-700"
+  
+     >
+  {enrol.status}
+</span>
+      <div className="card-actions">
+      <button className="btn bg-linear-to-r from-yellow-500 via-lime-500 to-green-500 text-white text-base">Continue Learning</button>
+    </div>
+  </div>
+</div>
 
-            <div className="p-5">
-              <h2 className="text-2xl font-bold mb-2">
-               
-              </h2>
+              </div> )
+            }
 
-              <p className="text-gray-500 mb-4">
-                Instructor:
-              </p>
-             
-
-           
-
-              <button className="w-full bg-linear-to-r from-green-500 via-emerald-500 to-teal-500 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition">
-                Continue Learning
-              </button>
-            </div>
           </div>
-        
-      </div>
+        )
+
+        }
+      </div>  
+
+      {
+         enroll.length > 6 && (
+          <div className="text-center mt-8">
+            <button onClick ={handleShowCard}
+              className="px-6 py-3 bg-linear-to-r from-yellow-400 via-orange-500 to-yellow-600 text-white rounded-xl hover:bg-indigo-700 transition">
+              {expanded ? "Show Less" : "Show all"}
+            </button>
+
+          </div>
+        )
+      }
+
+     
+
+      
     </div>
     </div>
   );

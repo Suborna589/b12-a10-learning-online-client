@@ -102,53 +102,58 @@ const CourseDetails = () => {
     courseModalRef.current?.close();
   };
  
-  const handleCourse = (e) => {
-    e.preventDefault();
-    const form =e.target;
-    const courseId =  course._id;
-     const formData = {
-             course:courseId,
-             name:form.name.value,
-             email:form.email.value,
-             title :form.title.value,
-             price:form.price.value,
-             thumbnail:form.thumbnail.value,
-             instructor:form.instructor.value,
-             status:'pending'
+const handleCourse = (e) => {
+  e.preventDefault();
 
-       } 
-       fetch('http://localhost:5183/courseBuy',{
-        method:"POST",
-        headers: { 
-          'content-type': 'application/json',
-          
-        }, 
-        body: JSON.stringify(formData) 
-       })
-       .then(res=>res.json())
-       .then(data=>{
-          if(data.insertedId){
-          
-         Swal.fire({
-          position: "top-end",
-         icon: "success",
-         title: "Your work has been saved",
-          showConfirmButton: false,
-          timer: 1500
-           });
-            closeModal()
+  const form = e.target;
 
-          }
-       }).catch(error=>{
-        console.log(error)
-       })
+  
 
-
-
-     
+  const formData = {
     
-   
-  }
+    name: form.name.value,
+    email: form.email.value,
+    title: form.title.value,
+    thumbnail: form.thumbnail.value,
+    price: form.price.value,
+    instructor: form.instructor.value,
+    status: "pending",
+  };
+
+  fetch("http://localhost:5183/courseBuy", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+
+      if (data.insertedId) {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Course Purchased Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        closeModal();
+        form.reset();
+      }
+    })
+    .catch((error) => {
+      console.log("Error:", error);
+
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong",
+        text: error.message,
+      });
+    });
+};
   
 
   return (
@@ -311,12 +316,12 @@ const CourseDetails = () => {
           <input defaultValue={user.displayName} readOnly type="text" className="input w-full  rounded-xl  text-black " name="name" placeholder="Your Name" />
           <label className="label text-black">Email</label>
           <input type="email" className="input   rounded-xl text-black w-full  " name='email'  defaultValue={user.email} readOnly  placeholder="Email" />
+          <label className="label text-black">Thumbnail</label>
+          <input type="url" className="input   rounded-xl text-black w-full " name='thumbnail'  placeholder="Course Thumbnail" />
           <label className="label text-black">Title</label>
           <input type="text" className="input   rounded-xl text-black w-full " name='title'  placeholder="Course" />
           <label className="label text-black">Price</label>
-          <input type="integer" className="input   rounded-xl text-black w-full " name='price'  placeholder="Price" />
-          <label className="label text-black">Thumbnail</label>
-          <input type="url" className="input   rounded-xl text-black w-full " name='thumbnail'  placeholder="Course Thumbnail" />
+          <input type="number" className="input   rounded-xl text-black w-full " name='price'  placeholder="Price" />
           <label className="label text-black">Instructor</label>
           <input type="text" className="input   rounded-xl text-black w-full " name='instructor'  placeholder="Instructor Name" />
        
