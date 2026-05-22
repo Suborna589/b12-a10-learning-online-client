@@ -50,7 +50,7 @@ const MyCourse = () => {
       ];
 
  useEffect(() => {
-  fetch(`http://localhost:5183/my-course?email=${user.email}`,{
+  fetch(`https://b12-a10-online-learning-server.vercel.app/my-course?email=${user.email}`,{
   
 
 

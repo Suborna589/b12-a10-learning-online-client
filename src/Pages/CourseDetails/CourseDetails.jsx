@@ -24,7 +24,7 @@ const CourseDetails = () => {
 
 
   useEffect(() => {
-    fetch(`http://localhost:5183/courses/${id}`)
+    fetch(`https://b12-a10-online-learning-server.vercel.app/courses/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setCourse(data);
@@ -49,47 +49,38 @@ const CourseDetails = () => {
   }  
 
 
-       const handleDelete = ()=>{
-        Swal.fire({
-  title: "Are you sure?",
-  text: "You won't be able to revert this!",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes, delete it!"
-}).then((result) => {
-  if (result.isConfirmed)
-      fetch(`http://localhost:5183/courses/${course._id}`,{
-        method:"DELETE",
-        headers:{
-            'content-type':'application/json',
-        },
-       
-       }) 
-       .then((res)=>res.json())
-       .then(data=>{
-        console.log(data)
-        navigate('/courses')
-        Swal.fire({
-         title: "Deleted!",
-         text: "Your file has been deleted.",
-         icon: "success"
-       }).catch(error=>{
-        console.log(error)
-       })
- 
-    
-  });
-}); 
+     const handleDelete = () => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch(`http://localhost:5183/courses/${course._id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
 
+          navigate("/courses");
 
-
-
-
-
-
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
+  });
+};
 
  
 

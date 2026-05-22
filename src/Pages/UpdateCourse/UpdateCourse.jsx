@@ -10,50 +10,50 @@ const UpdateCourse = () => {
       const location = useLocation();
       const navigate = useNavigate();
 
-    const handleUpdateCourse =(e)=>{
-          e.preventDefault() 
-        const form=e.target;
-       const formData = {
-          
-          title :form.title.value,   
-           thumbnail :form.thumbnail.value,
-           price :form.price.value,
-           duration:form.duration.value,
-           category:form.category.value,
-          description : form.description.value,
-          
+  const handleUpdateCourse = (e) => {
+  e.preventDefault();
 
-       } 
+  const form = e.target;
 
-       fetch(`http://localhost:5183/courses/${course._id}`,{
-        method:"PUT",
-        headers:{
-            'content-type':'application/json',
-        },
-        body: JSON.stringify(formData)
-       })
-       .then((res)=>res.json())
-       .then(data=>{
-        console.log(data)
-        form.reset();
-        navigate(`${location.state ? location.state : '/courses'}`)
-        Swal.fire({
-        title: "Do you want to save the changes?",
-        showDenyButton: true,
-        showCancelButton: true,
-       confirmButtonText: "Update",
-       denyButtonText: `Don't  update`
-         }).then((result) => {
-        if (result.isConfirmed) Swal.fire("Updated!", "", "success");
-       else if (result.isDenied) Swal.fire("Changes are not update", "", "info");
-     });
-       }).catch(error=>{
-        console.log(error)
-       })
-        
+  const formData = {
+    title: form.title.value,
+    thumbnail: form.thumbnail.value,
+    price: form.price.value,
+    duration: form.duration.value,
+    category: form.category.value,
+    description: form.description.value,
+  };
 
-        console.log(formData);
-    }
+  fetch(`http://localhost:5183/courses/${course._id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+
+      Swal.fire({
+        title: "Updated!",
+        text: "Course updated successfully",
+        icon: "success",
+      });
+
+      form.reset();
+      navigate(location.state || "/courses");
+    })
+    .catch((error) => {
+      console.log("Update error:", error);
+
+      Swal.fire({
+        title: "Error!",
+        text: "Failed to update course",
+        icon: "error",
+      });
+    });
+};
 
 
     
