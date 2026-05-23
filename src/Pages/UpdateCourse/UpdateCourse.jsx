@@ -1,13 +1,11 @@
 import React from 'react';
 import { useLoaderData } from 'react-router';
 import Navbar from '../../Components/Header/Navbar';
-import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 
 const UpdateCourse = () => {
-    const course = useLoaderData();
-      const location = useLocation();
+    const course = useLoaderData();  
       const navigate = useNavigate();
 
   const handleUpdateCourse = (e) => {
@@ -41,8 +39,8 @@ const UpdateCourse = () => {
         icon: "success",
       });
 
-      form.reset();
-      navigate(location.state || "/courses");
+      navigate("/courses", { replace: true });
+      
     })
     .catch((error) => {
       console.log("Update error:", error);

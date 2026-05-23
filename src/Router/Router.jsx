@@ -32,7 +32,7 @@ const router = createBrowserRouter([
     {
         path:'/', 
         element:<HomeLayout> </HomeLayout>,
-        loader:()=>fetch("https://b12-a10-online-learning-server.vercel.app/popularCourse"),
+        loader:()=>fetch("http://localhost:5183/popularCourse"),
 
        
 
@@ -48,7 +48,7 @@ const router = createBrowserRouter([
               {
       path:'courses',
       element:<AllCourses></AllCourses>,
-      loader:()=> fetch('https://b12-a10-online-learning-server.vercel.app/courses'),
+      loader:()=> fetch('http://localhost:5183/courses'),
        hydrateFallbackElement:<Loading></Loading>,
 
     },  
@@ -84,7 +84,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/updateCourse/:id',
-    loader:({params})=>fetch(`https://b12-a10-online-learning-server.vercel.app/courses/${params.id}`),
+    loader:({params})=>fetch(`http://localhost:5183/courses/${params.id}`),
     element:<PrivateRoute><UpdateCourse></UpdateCourse></PrivateRoute>,
     hydrateFallbackElement:<Loading></Loading>,
   },

@@ -24,7 +24,7 @@ const CourseDetails = () => {
 
 
   useEffect(() => {
-    fetch(`https://b12-a10-online-learning-server.vercel.app/courses/${id}`)
+    fetch(`http://localhost:5183/courses/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setCourse(data);

@@ -56,7 +56,7 @@ const EnrollCourse = () => {
    useEffect(() => {
    
   if (!user?.email) return;
-    fetch(`https://b12-a10-online-learning-server.vercel.app/courseBuy?email=${user.email}`)
+    fetch(`http://localhost:5183/courseBuy?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

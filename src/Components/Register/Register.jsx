@@ -62,7 +62,7 @@ const [show,setShow]=useState(false);
           
         };
 
-        fetch("https://b12-a10-online-learning-server.vercel.app/users",{
+        fetch("http://localhost:5183/users",{
 
           method: 'POST',
           headers:{
